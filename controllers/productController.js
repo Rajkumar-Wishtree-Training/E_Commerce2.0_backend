@@ -6,10 +6,12 @@ const ErrorHandler = require('../utils/errorhandler')
 
 //Create a Product -- Admin
 exports.createProduct = catchAsyncErrors( async (req, res, next) => {
+        const user = req.user.id;
+        req.body.user = user
         const product = await Product.create(req.body)
 
         await product.save()
-
+       
         res.status(201).json({
             success: true,
             product

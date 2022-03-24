@@ -3,6 +3,7 @@ const ErrorHandler = require('../utils/errorhandler')
 const User = require('../models/userModel');
 const sendToken = require('../utils/jwtTokens');
 
+
 //Register a User
 exports.registerUser = catchAsyncErrors(async ( req , res , next) => {
     const {name , email , password} = req.body;
@@ -36,4 +37,17 @@ exports.loginUser = catchAsyncErrors(async (req , res , next) => {
     }
 
     sendToken(user , 200 , res)
+})
+
+//Logout user
+exports.logoutUser = catchAsyncErrors(async (req , res , next) => {
+    res.cookie('token' , null , {
+        expires : new Date(Date.now()),
+        httpOnly : true
+    })
+
+    res.status(200).json({
+        success : true,
+        message : "Loged Out"
+    })
 })

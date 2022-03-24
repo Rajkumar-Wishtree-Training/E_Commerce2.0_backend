@@ -1,7 +1,7 @@
 const sendToken = async (user , statusCode , res) => {
      
     const token = await user.getJwtToken();
-    console.log(token);
+    // console.log(token);
     //Options for cookie
     const options = {
         expires : new Date(
